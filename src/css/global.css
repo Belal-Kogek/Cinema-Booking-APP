@@ -1,0 +1,339 @@
+/* =========================================
+   1. المتغيرات والأساسيات (Variables & Base)
+========================================= */
+/*:root {
+    --bg-color: #020114;
+    --noise-opacity: 0.04;
+    --card-bg: #1a0e4175;
+    --text-color: #ffffff;
+}
+
+.light-mode {
+    --bg-color: #f4f4f4; 
+    --noise-opacity: 0.08; 
+    --card-bg: #ffffff;
+    --text-color: #121212;
+}*/
+
+/* =========================================
+   1. الدارك مود (الأساسي) - ألوان سينمائية عميقة
+========================================= */
+/* =========================================
+   1. الدارك مود (الأساسي)
+========================================= */
+:root {
+    --bg-color: #020114;
+    --card-bg: #1a0e4175;
+    --text-color: #ffffff;
+    --text-muted: #8b9bb4;
+    --primary-color: #e50914; 
+    --logo-color :#e50914;
+    --nav-bg: rgba(22, 14, 31, 0.95); 
+    --nav-btn-bg: transparent; 
+    
+    /* 👈 هنا بنحط صورة الدارك مود والطبقة السودة */
+    --hero-bg-image: url(https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?);
+    
+    --hero-overlay: rgba(0, 0, 0, 0.7); 
+}
+
+/* =========================================
+   2. اللايت مود (Off-White ناعم جداً ومريح)
+========================================= */
+.light-mode {
+    --bg-color: #f3f4f6; /* رمادي فاتح جداً مريح للعين */
+    --card-bg: rgb(150 150 150 / 12%);; /* الكروت بس هي اللي بيضا عشان تبرز */
+    --text-color: #1f2937; /* رمادي غامق جداً (أشيك من الأسود) */
+    --text-muted: #565c68; 
+    --primary-color: #d80813; 
+    --logo-color :rgb(26, 26, 46);;
+    --nav-bg: rgba(202, 196, 204, 0.95); 
+    --nav-btn-bg: transparent;
+    
+    /* 👈 هنا بنحط صورة اللايت مود الفاتحة والطبقة البيضا */
+    --hero-bg-image: url(https://images.unsplash.com/photo-1485846234645-a62644f84728?);
+    --hero-overlay: rgb(85 85 85 / 40%); /* طبقة شفافة بيضا عشان الكلام يبان */
+}
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color); 
+    color: var(--text-color);
+    position: relative; 
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Work Sans", sans-serif; 
+    transition: background-color 0.3s ease; 
+}
+
+/* 2. تمييز العناوين واللوجو بخط Rubik */
+h1, h2, h3, h4, h5, h6, .logo {
+    font-family: "Rubik", sans-serif;
+}
+
+/* كلاسات مساعدة عامة */
+.hidden {
+    display: none !important;
+}
+
+/* تأثير الظهور الناعم (مستخدم في الصفحتين) */
+@keyframes smoothAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
+
+#movie-grid, #booking-section {
+    animation: smoothAppear 0.4s ease-out forwards;
+}
+
+/* =========================================
+   2. الناف بار (Navbar)
+========================================= */
+.navbar {
+    width: 85%;
+    margin: 20px auto 0 auto;
+    background-color: var(--nav-bg);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 20px; 
+    z-index: 999;
+    border-radius: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--logo-color);
+    z-index: 2;
+}
+
+.nav-links {
+    display: flex;
+    position: relative; 
+    gap: 5px; 
+}
+
+.nav-item {
+    display: inline-block;
+    color: #e7e6e6 !important; 
+    text-decoration: none !important;
+    padding: 10px 25px;
+    border-radius: 30px;
+    background-color: rgb(50 50 50 / 40%); 
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8); 
+    transition: all 0.3s ease; 
+    white-space: nowrap !important; /* لمنع التكسير */
+}
+
+.nav-item:hover {
+    color: #fff !important;
+    background-color: #e50914; 
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.5); 
+    transform: translateY(-3px); 
+}
+
+.nav-item:active {
+    transform: translateY(2px) scale(0.95); 
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.9); 
+}
+
+.nav-item.active-page {
+    background-color: #e50914;
+    color: #fff !important;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+}
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative; 
+    z-index: 1000;
+}
+
+.menu-toggle:hover {
+    color: var(--primary-color);
+}
+/*==================*/
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: #111;
+  width: 37px;
+  height: 12px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fa-moon {color: #d3d3d3;}
+
+.fa-sun {color: #f39c12;}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+.nav-actions {
+    display: flex;
+    align-items: center; 
+    gap: 15px;
+}
+/* دعم شاشات الموبايل للناف بار */
+@media (max-width: 768px) {
+   .navbar {
+        width: 85%; 
+        padding: 15px 20px; 
+        border-radius: 20px; /* تقليل الدوران عشان يناسب الموبايل */
+    }
+
+    /* 1. إظهار زرار البرجر */
+    .menu-toggle {
+        display: block;
+    }
+
+    /* 2. تحويل اللينكات لقائمة منسدلة مخفية */
+    .nav-links {
+
+        display: flex;
+        flex-direction: column; /* ترتيب اللينكات تحت بعض */
+        position: absolute;
+        top: 110%; /* تنزل تحت الناف بار مباشرة */
+        left: 50%;
+        width: 50%;
+        background-color: var(--nav-bg);
+        border-radius: 15px;
+        padding: 0; /* هنلغي البادينج الأساسي */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.534);
+        
+        /* تأثير الظهور والانزلاق */
+        max-height: 0; 
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    }
+
+    /* الكلاس ده الجافاسكريبت هيضيفه عشان القائمة تفتح */
+    .nav-links.active-menu {
+        max-height: 300px; /* رقم يكفي طول اللينكات */
+        padding: 20px 0; /* إرجاع المسافات لما تفتح */
+    }
+
+    /* تظبيط شكل الزراير جوه القائمة المنسدلة */
+    .nav-item {
+        margin: 10px 20px;
+        text-align: center;
+        border-radius: 10px;
+    } 
+}
+@media (max-width: 400px) {
+    .navbar .logo { font-size: 1.3rem; }
+    .nav-item { padding: 6px 8px; font-size: 0.75rem; }
+}
+
+/* =========================================
+   3. الفوتر (Footer)
+========================================= */
+.footer {
+    background-color: rgba(26, 26, 46, 0.9);
+    color: #bbb;
+    text-align: center;
+    padding: 40px 20px 20px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-content h3 { color: #fff; margin-bottom: 10px; }
+.contact-content p { margin-bottom: 5px; font-size: 0.9rem; }
+.footer-bottom {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.8rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    flex-wrap: wrap; 
+    }
+
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px; 
+    padding: 10px 22px;
+    border-radius: 30px; 
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-muted); 
+    background-color: var(--nav-btn-bg); 
+    border: 1px solid rgba(128, 128, 128, 0.2);
+    transition: all 0.3s ease;
+}
+
+.social-btn i {
+    font-size: 1.2rem; 
+}
+
+.social-btn.linkedin:hover {
+    background-color: #0a66c2;
+    color: #fff;
+    border-color: #0a66c2;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(10, 102, 194, 0.4);
+}
+
+.social-btn.github:hover {
+    background-color: #333333; 
+    color: #fff;
+    border-color: #333333;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(51, 51, 51, 0.4);
+}
+
+.light-mode .social-btn.github:hover {
+    background-color: #24292e;
+}
+
+.social-btn.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+    border-color: transparent; 
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(220, 39, 67, 0.4); 
+}

@@ -1,0 +1,313 @@
+/* =========================================
+   1. تخطيط الشاشة (Booking Layout)
+========================================= */
+.booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* يمين وشمال */
+    gap: 30px; 
+    align-items: start;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+@media (max-width: 768px) {
+    .booking-layout {
+        grid-template-columns: 1fr; /* تحت بعض في الموبايل */
+    }
+    .back-btn {
+        display: block !important;
+        margin: 20px auto 30px auto; 
+        width: fit-content;
+    }
+    
+    .cinema-screen {
+    width: 90%; 
+    }
+    .summary-box {
+    width: 80% !important;
+    }
+    .checkout-btn{
+        font-size: 0.9rem !important;
+    }
+
+}
+
+/* =========================================
+   2. فيديو التريلر
+========================================= */
+#trailer-container iframe {
+    width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+}
+#booking-title {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* =========================================
+   3. خريطة الكراسي (Seat Map)
+========================================= */
+.seat-map {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; 
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.seat-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+    margin-bottom: 20px; 
+}
+
+/* تنسيق الكرسي الأساسي */
+.seat {
+    width: 35px;
+    height: 35px;
+    background-color: #3498db; 
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seat:not(.booked):hover {
+    transform: scale(1.1); 
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.6);
+}
+
+/* أنواع الكراسي */
+.seat.vip {
+    background-color: #f5c518; 
+}
+.seat.vip:not(.booked):hover {
+    box-shadow: 0 0 10px rgba(245, 197, 24, 0.6);
+}
+
+.seat.love {
+    width: 85px; 
+    background-color: #ff4757;
+    border-radius: 18px; 
+}
+.seat.love:not(.booked):hover {
+    box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+}
+
+/* حالات الكرسي (محجوز / مختار) */
+.seat.booked {
+    opacity: 0.2; 
+    cursor: not-allowed; 
+    pointer-events: none; 
+}
+
+.seat.selected {
+    outline: 3px solid;
+    outline-color: var(--text-color);
+    transform: scale(1.1);
+}
+.cinema-screen {
+    width: 80%; /* مش هتاخد العرض كله عشان تبان إنها شاشة */
+    height: 25px;
+    margin: 0 auto 40px auto; /* متوسنطة وفي مسافة بينها وبين الكراسي */
+    background: rgba(255, 255, 255, 0.05); /* لون رمادي شفاف */
+    border-top: 4px solid var(--text-color); /* الخط الأبيض أو الفاتح من فوق */
+    
+    /* السحر كله هنا: انحناء من فوق بس */
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0; 
+    
+    /* ضل خفيف كأن الشاشة مطلعة إضاءة على الكراسي */
+    box-shadow: 0 15px 30px rgba(255, 255, 255, 0.05);
+}
+/*================================*/
+/* حاوية الدليل الزجاجية */
+.seats-legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    width: fit-content;
+    margin: 0 auto 30px auto; /* متوسنطة وفي مسافة بينها وبين الكراسي */
+    padding: 15px 30px;
+    background: rgba(141, 141, 141, 0.274); /* تأثير زجاجي خفيف */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+/* العنصر الواحد جواه (اللون + الكلمة) */
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* الشكل الأساسي للكراسي في الدليل */
+.seat-example {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; /* شكل دائري للكرسي العادي والـ VIP */
+}
+
+/* ألوان الكراسي (ظبط درجات الألوان على حسب اللي مستخدمها عندك) */
+.seat-example.standard {
+    background-color: #3b82f6; /* أزرق */
+}
+
+.seat-example.vip {
+    background-color: #facc15; /* أصفر */
+}
+
+.seat-example.premium {
+    background-color: #ff4d4d; /* أحمر */
+    width: 45px; /* خليناه أعرض */
+    border-radius: 12px; /* شكل كبسولة زي اللي في الديزاين بتاعك */
+}
+
+/* تظبيط للموبايل عشان ميكرمشوش */
+@media (max-width: 768px) {
+    .seats-legend {
+        flex-direction: column; /* ينزلوا تحت بعض في الموبايل */
+        gap: 15px;
+        padding: 15px;
+    }
+}
+/*================================*/
+.summary-box {
+    width: 60% ; /* نلم العرض بتاعه */
+    margin: 40px auto; /* نوسطنه في نص الشاشة تحت الكراسي */
+    padding: 20px 40px;
+    background: rgba(255, 255, 255, 0.05); /* شفافية زجاجية */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px; /* حواف ناعمة */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* سحر الـ Flexbox عشان نجيب الكلام في ناحية والزرار في ناحية */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.p-info {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+/* نميز السعر وعدد التذاكر باللون الأبيض الفاقع */
+.summary-info span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-color);
+}
+.checkout-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgb(50 50 50 / 40%);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8);
+
+}
+
+.checkout-btn:hover {
+    transform: translateY(-3px);
+    background-color: #e50914; 
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.5);
+}
+.back-btn {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: rgb(108 29 125 / 60%);
+    box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8);
+    display: none;
+}
+.back-btn:hover {
+    transform: translateY(-3px);
+    background-color: #e50914; 
+    box-shadow: 0 6px 15px rgba(229, 9, 20, 0.5);
+}
+
+/* 1. كارت تفاصيل الفيلم (القصة والتقييم) */
+.details-box {
+    background-color: var(--card-bg); /* بياخد لون الكارت */
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05); /* إطار شفاف جداً يدي فخامة */
+    flex: 1; /* عشان يفضل واخد مساحته جنب الفيديو */
+}
+
+/* 2. كارت منطقة الكراسي كلها (الشاشة + الكراسي + الفاتورة) */
+.seats-side {
+    background-color: var(--card-bg);
+    padding: 40px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 30px;
+}
+/*====================================================*/
+/* =========================================
+   تنسيقات SweetAlert المسمطة (Solid)
+========================================= */
+
+/* 1. الدارك مود (الأساسي) - بنفسجي غامق صريح ومسمط */
+.swal2-popup {
+    background: #1a1025 !important; /* لون بنفسجي غامق جداً */
+    color: #ffffff !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* لون عنوان الرسالة في الدارك مود */
+.swal2-title {
+    color: #ffffff !important;
+}
+
+/* 2. اللايت مود - أبيض هادي مسمط (Off-White) */
+body.light-mode .swal2-popup {
+    background: #f8f9fa !important; /* أبيض هادي جداً مريح للعين */
+    color: #1f2937 !important; /* رمادي غامق للقراءة */
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* لون عنوان الرسالة في اللايت مود */
+body.light-mode .swal2-title {
+    color: #1f2937 !important;
+}
+
+/* 3. تظبيط زرار التأكيد (OK) عشان يليق مع الموقع */
+.swal2-confirm {
+    background-color: var(--primary-color) !important;
+    color: #fff !important;
+    border-radius: 30px !important;
+    padding: 12px 35px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.swal2-confirm:hover {
+    transform: translateY(-2px) !important;
+    background-color: #ff0a16 !important;
+    box-shadow: 0 8px 25px rgba(229, 9, 20, 0.6) !important;
+}
